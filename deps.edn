@@ -1,5 +1,5 @@
 {:deps
- {org.clojure/clojure {:mvn/version "1.8.0"}
+ {org.clojure/clojure {:mvn/version "1.9.0"}
   org.clojure/java.jdbc {:mvn/version "0.7.9"}
   org.xerial/sqlite-jdbc {:mvn/version "3.28.0"}
   com.layerware/hugsql {:mvn/version "0.4.9"}
@@ -8,4 +8,7 @@
  :aliases
  {:repl
   {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
-   :main-opts ["-m" "rebel-readline.main"]}}}
+   :main-opts ["-m" "rebel-readline.main"]}
+  :test
+  {:extra-deps {lambdaisland/kaocha {:mvn/version "0.0-554"}}
+   :main-opts ["-m" "kaocha.runner"]}}}
