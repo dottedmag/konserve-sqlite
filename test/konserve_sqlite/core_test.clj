@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [konserve.core :as k]
             [konserve-sqlite.core :refer [new-sqlite-store delete-store]]
-            [clojure.core.async :refer [<!!]]))
+            [clojure.core.async :refer [<!!]]
+            [clojure.java.io :as j]))
 
 (deftest sqlite-store-test
   (testing "Test the SQLite store functionality."
@@ -29,6 +30,12 @@
                                           (range 10))))))
       (delete-store uri))))
 
+(defn cleanup-db [f]
+  (fn [])
+  (f)
+  (j/delete-file "test.db"))
+
+(use-fixtures :each cleanup-db)
 
 (comment
 
