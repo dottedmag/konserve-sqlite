@@ -34,12 +34,12 @@ through SQLite directly wherever you need.
 
 ### 0.1.0
 
-- Converted PostgreSQL implementation to SQLite
+- Converted [PostgreSQL implementation](https://github.com/retro/konserve-pg) to
+  SQLite
 
 ## License
 
-Copyright © 2019 Mikhail Gusarov
-Copyright © 2014-2019 Christian Weilbach and Mihael Konjevic
+Copyright 2019 Mikhail Gusarov, 2014-2019 Christian Weilbach and Mihael Konjevic
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
