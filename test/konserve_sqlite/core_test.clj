@@ -1,27 +1,18 @@
-(ns konserve-pg.core-test
+(ns konserve-sqlite.core-test
   (:require [clojure.test :refer :all]
             [konserve.core :as k]
-            [konserve-pg.core :refer [new-pg-store delete-store]]
+            [konserve-sqlite.core :refer [new-sqlite-store delete-store]]
             [clojure.core.async :refer [<!!]]))
 
-(deftest pg-store-test
-  (testing "Test the pg store functionality."
-    (let [uri "postgres://postgres:postgres@localhost:5432/konserve"
-          store (<!! (new-pg-store uri))]
+(deftest sqlite-store-test
+  (testing "Test the SQLite store functionality."
+    (let [uri "jdbc:sqlite:test.db"
+          store (<!! (new-sqlite-store uri))]
       (is (= (<!! (k/exists? store :foo))
              false))
       (<!! (k/assoc-in store [:foo] nil))
       (is (= (<!! (k/get-in store [:foo]))
              nil))
-      
-      (<!! (k/assoc-in store [:num] 1))
-      (is (= (<!! (k/get-in store [:num])) 1))
-
-      (<!! (k/update-in store [:num] inc))
-      (is (= (<!! (k/get-in store [:num])) 2))
-
-      (<!! (k/update-in store [:num] + 2 3))
-      (is (= (<!! (k/get-in store [:num])) 7))
 
       (<!! (k/assoc-in store [:foo] :bar))
 
@@ -41,7 +32,7 @@
 
 (comment
 
-  (def store (<!! (new-pg-store "postgres://postgres:postgres@localhost:5432/konserve")))
+  (def store (<!! (new-sqlite-store "jdbc:sqlite:test.db")))
 
   (<!! (k/assoc-in store [:foo] nil))
 

@@ -1,0 +1,11 @@
+{:deps
+ {org.clojure/clojure {:mvn/version "1.8.0"}
+  org.clojure/java.jdbc {:mvn/version "0.7.9"}
+  org.xerial/sqlite-jdbc {:mvn/version "3.28.0"}
+  com.layerware/hugsql {:mvn/version "0.4.9"}
+  hugsql-adapter-case {:mvn/version "0.1.0"}
+  io.replikativ/konserve {:mvn/version "0.5.0"}}
+ :aliases
+ {:repl
+  {:extra-deps {com.bhauman/rebel-readline {:mvn/version "0.1.4"}}
+   :main-opts ["-m" "rebel-readline.main"]}}}

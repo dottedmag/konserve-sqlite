@@ -1,48 +1,44 @@
-# konserve-pg
+# konserve-sqlite
 
-A PostgreSQL implementation of the [konserve kv-protocol](https://github.com/replikativ/konserve) on top of [HugSQL](https://www.hugsql.org/).
+A SQLite implementation of the [konserve
+kv-protocol](https://github.com/replikativ/konserve).
 
 ## Usage
 
-Add to your leiningen dependencies:
-[![Clojars Project](http://clojars.org/org.clojars.mihaelkonjevic/konserve-pg/latest-version.svg)](http://clojars.org/org.clojars.mihaelkonjevic/konserve-pg)
+The whole purpose of konserve is to have a unified associative key-value
+interface for edn datastructures. Just use the standard interface functions of
+konserve.
 
-The whole purpose of konserve is to have a unified associative key-value interface for
-edn datastructures. Just use the standard interface functions of konserve.
-
-You can also provide a DB connection object to the `new-pg-store` constructor
-as an argument. We do not require additional settings beyond the konserve
-serialization protocol for the store, so you can still access the store through
-PostgreSQL directly wherever you need.
+You can also provide a DB connection object to the `new-sqlite-store`
+constructor as an argument. We do not require additional settings beyond the
+konserve serialization protocol for the store, so you can still access the store
+through SQLite directly wherever you need.
 
 ~~~clojure
-  (require '[konserve-pg.core :refer :all]
+  (require '[konserve-sqlite.core :refer :all]
            '[konserve.core :as k)
-  (def pg-store (<!! (new-pg-store "postgres://postgres:postgres@localhost:5432/konserve")))
+  (def sqlite-store (<!! (new-sqlite-store "jdbc:sqlite:database.db")))
 
-  (<!! (k/exists? pg-store  "john"))
-  (<!! (k/get-in pg-store ["john"]))
-  (<!! (k/assoc-in pg-store ["john"] 42))
-  (<!! (k/update-in pg-store ["john"] inc))
-  (<!! (k/get-in pg-store ["john"]))
+  (<!! (k/exists? sqlite-store  "john"))
+  (<!! (k/get-in sqlite-store ["john"]))
+  (<!! (k/assoc-in sqlite-store ["john"] 42))
+  (<!! (k/update-in sqlite-store ["john"] inc))
+  (<!! (k/get-in sqlite-store ["john"]))
 
   (defrecord Test [a])
-  (<!! (k/assoc-in pg-store ["peter"] (Test. 5)))
-  (<!! (k/get-in pg-store ["peter"]))
+  (<!! (k/assoc-in sqlite-store ["peter"] (Test. 5)))
+  (<!! (k/get-in sqlite-store ["peter"]))
 ~~~
-
 
 ## Changes
 
 ### 0.1.0
 
-- binary support
-- use konserve 0.5.0
-- arbitrary key length (hashing)
-- use new reduced konserve interface and serializers
+- Converted PostgreSQL implementation to SQLite
 
 ## License
 
+Copyright © 2019 Mikhail Gusarov
 Copyright © 2014-2019 Christian Weilbach and Mihael Konjevic
 
 Distributed under the Eclipse Public License either version 1.0 or (at
